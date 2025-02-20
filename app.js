@@ -3,6 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
+app.use(express.static('public'));
+
 // routes definitions
 app.use('/', require('./routes/default'));
 app.use('/session', require('./routes/session'));
