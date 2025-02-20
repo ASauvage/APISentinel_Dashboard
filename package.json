@@ -1,0 +1,31 @@
+{
+    "name": "apitester_dashboard",
+    "version": "1.0.0",
+    "description": "Web interface to analyse result of ApiTester",
+    "keywords": [],
+    "homepage": "https://github.com/ASauvage/ApiTester_Dashboard#readme",
+    "bugs": {
+        "url": "https://github.com/ASauvage/ApiTester_Dashboard/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/ASauvage/ApiTester_Dashboard.git"
+    },
+    "license": "MIT",
+    "author": "ASauvage",
+    "type": "commonjs",
+    "main": "app.js",
+    "scripts": {
+        "start": "node",
+        "start-dev": "nodemon",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "dotenv": "^16.4.7",
+        "ejs": "^3.1.10",
+        "express": "^4.21.2"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.9"
+    }
+}
