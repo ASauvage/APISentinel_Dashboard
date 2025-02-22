@@ -3,24 +3,21 @@ const router = express.Router();
 
 
 router.get('/', function (req, res) {
-    res.render('layout.ejs', {
-        title: 'Homepage',
-        layout: 'index.ejs',
+    res.render('index', {
+        title: 'Homepage'
     });
 
 });
 
 router.get('/about', function (req, res) {
-    res.render('layout.ejs', {
-        title: 'About',
-        layout: 'about.ejs'
+    res.render('about', {
+        title: 'About'
     });
 });
 
 router.get('/help', function (req, res) {
-    res.render('help.ejs', {
-        title: 'Help',
-        layout: 'help.ejs'
+    res.render('help', {
+        title: 'Help'
     });
 });
 

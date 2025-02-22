@@ -3,17 +3,15 @@ const router = express.Router();
 
 
 router.get('/', function (req, res) {
-    res.render('layout.ejs', {
-        title: 'Sessions',
-        layout: 'session.ejs'
+    res.render('session', {
+        title: 'Sessions'
     });
 });
 
 router.get('/:id', function (req, res) {
-    res.render('layout.ejs', {
+    res.render('test', {
         title: 'Test ' + req.params.id,
-        layout: 'test.ejs',
-        id: req.params.id,
+        id: req.params.id
     })
 });
 
