@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        const results = await api_tester.find({'test_info.version': process.env.APT_VERSION}).sort({'timestamp': -1, 'title': -1}).limit(30)
+        const results = await api_tester.find({'test_info.version': process.env.APT_VERSION}, {'api_response': 0}).sort({'timestamp': -1, 'title': -1}).limit(30)
 
         res.render('session', {
             title: 'Sessions',
