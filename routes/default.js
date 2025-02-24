@@ -1,13 +1,23 @@
 const express = require('express');
+const api_tester = require('../mongodb/models')
+
 const router = express.Router();
 
 
-router.get('/', (req, res) => {
-    res.render('index', {
-        title: 'Homepage',
-        sessions: [{session_id: "250211-114807-25er623f"}, {session_id: "250211-114807-266e951a"}, {session_id: "250211-114807-59qe84rt"}]
-    });
+router.get('/', async (req, res) => {
+    try {
+        const sessions = await api_tester.find()
 
+        res.render('index', {
+            title: 'Homepage',
+            sessions: sessions
+        });
+    } catch (error) {
+        res.status(500).render('error', {
+            status_code: 500,
+            error: error
+        })
+    }
 });
 
 router.get('/about', (req, res) => {
