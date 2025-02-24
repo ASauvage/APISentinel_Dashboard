@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const api_tester = require('../mongodb/models')
 
@@ -6,7 +8,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        const sessions = await api_tester.find()
+        const sessions = await api_tester.distinct('test_info.service', {'test_info.version': process.env.APT_VERSION})
 
         res.render('index', {
             title: 'Homepage',
@@ -21,15 +23,29 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/about', (req, res) => {
-    res.render('about', {
-        title: 'About'
-    });
+    try {
+        res.render('about', {
+            title: 'About'
+        });
+    } catch (error) {
+        res.status(500).render('error', {
+            status_code: 500,
+            error: error
+        })
+    }
 });
 
 router.get('/help', (req, res) => {
-    res.render('help', {
-        title: 'Help'
-    });
+    try {
+        res.render('help', {
+            title: 'Help'
+        });
+    } catch (error) {
+        res.status(500).render('error', {
+            status_code: 500,
+            error: error
+        })
+    }
 });
 
 
