@@ -19,5 +19,5 @@ const api_tester_schema = new mongoose.Schema({
     timestamp: {type: Number, required: true}
 });
 
-// console.log(await test.find({'test_info.session_id': '250211-114807-266e951a'}));
+
 module.exports = mongoose.model("tests", api_tester_schema);
