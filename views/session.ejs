@@ -14,22 +14,22 @@
                         <h3 class="border-bottom">Search your test results</h3>
                         <p class="text-muted">You can put any information you'd like here.</p>
                         <div class="content-section rounded">
-                            <form method="POST" action="">
+                            <form method="POST" action="/session">
                                 <fieldset class="form-group">
     <!--                                session_id field-->
                                     <div class="form-group">
                                         <label for="form_session_id" class="form-control-label">Session ID</label>
-                                        <input id="form_session_id" class="form-control form-control-lg" type="text" maxlength="22" placeholder="000000-000000-xxxxxxxx" />
+                                        <input id="form_session_id" name="session_id" class="form-control form-control-lg" type="text" maxlength="22" placeholder="000000-000000-xxxxxxxx" />
                                     </div>
     <!--                                service field-->
                                     <div class="form-group">
                                         <label for="form_service" class="form-control-label">Service</label>
-                                        <input id="form_service" class="form-control form-control-lg" type="text" />
+                                        <input id="form_service" name="service" class="form-control form-control-lg" type="text" />
                                     </div>
     <!--                                status field-->
                                     <div class="form-group">
                                         <label for="form_status" class="form-control-label">Status</label>
-                                        <select id="form_status" class="form-control form-control-lg">
+                                        <select id="form_status" name="status" class="form-control form-control-lg">
                                             <option value="" selected></option>
                                             <option value="true">True</option>
                                             <option value="false">False</option>
@@ -38,7 +38,7 @@
     <!--                                env field-->
                                     <div class="form-group">
                                         <label for="form_env" class="form-control-label">Environment</label>
-                                        <select id="form_env" class="form-control form-control-lg">
+                                        <select id="form_env" name="env" class="form-control form-control-lg">
                                             <option value="" selected></option>
                                             <option value="production">production</option>
                                             <option value="recette">recette</option>
@@ -52,7 +52,7 @@
                                     <div id="advancedSearch" class="collapse">
                                         <div class="form-group">
                                             <label for="form_query" class="form-control-label">MongoDB query</label>
-                                            <input id="form_query" class="form-control form-control-lg" type="text" />
+                                            <input id="form_query" name="query" class="form-control form-control-lg" type="text" />
                                         </div>
                                     </div>
                                 </fieldset>
