@@ -11,15 +11,15 @@
         <hr>
         
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 d-flex flex-wrap">
-        <% for(let i = 0; i < sessions.length; i++) { %>
+        <% sessions.forEach((session) => { %>
             <div class="col d-flex">
                 <div class="card flex-fill h-100">
                     <div class="card-body">
-                        <h5 class="card-title"><%= sessions[i] %></h5>
+                        <h5 class="card-title"><%= session %></h5>
                         <a href="#" class="btn btn-primary">Read More</a>
                     </div>
                 </div>
             </div>
-        <% } %>
+        <% }); %>
     </main>
 </body>

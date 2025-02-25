@@ -66,38 +66,39 @@
                         <h3><%= results.length %></h3>
                         <label class="form-control-label">Status rate</label>
                         <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: <%= 80 %>%" aria-valuemin="0" aria-valuemax="100"><%= 80 %>%</div>
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: <%= 100 - 80 %>%" aria-valuemin="0" aria-valuemax="100"><%= 100 - 80 %>%</div>
+                            <% const success_percent = results.length ? (results.filter(r => r.status).length / results.length * 100) : 100 %>
+                            <div class="progress-bar bg-success" role="progressbar" style="width: <%= success_percent %>%" aria-valuemin="0" aria-valuemax="100"><%= success_percent %>%</div>
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: <%= 100 - success_percent %>%" aria-valuemin="0" aria-valuemax="100"><%= 100 - success_percent %>%</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-8">
                 <% if (results.length > 0) { %>
-                    <% for (let i = 0; i < results.length; i++) { %>
+                    <% results.forEach((result) => { %>
                         <div class="content-result rounded-4">
                             <div class="row">
-                                <h2 class="col-md-8"><%= results[i].title %></h2><p class="col-md-4 text-body-tertiary fst-italic text-end fs-6"><%= results[i].timestamp %></p>
+                                <h2 class="col-md-8"><%= result.title %></h2><p class="col-md-4 text-body-tertiary fst-italic text-end fs-6"><%= new Date(result.timestamp * 1000).toLocaleString() %></p>
                             </div>
                             <div>
                                 <h5>
-                                    <b>Status: </b><span class="text-bg-<% if (results[i].status) { %>success<% } else { %>danger<% } %> px-1 font-monospace rounded"><%= results[i].status %></span>
+                                    <b>Status: </b><span class="badge text-bg-<% if (result.status) { %>success<% } else { %>danger<% } %> px-1 font-monospace rounded"><%= result.status %></span>
                                 </h5>
                                 <h6 class="css-text-teal css-code">
-                                    <a href="<%= results[i].url %>" target="_blank"><%= results[i].url %></a>
+                                    <a href="<%= result.url %>" target="_blank"><%= result.url %></a>
                                 </h6>
-                                <button class="btn btn-<% if (results[i].status) { %>light<% } else { %>warning<% } %> w-100" data-bs-toggle="collapse" data-bs-target="#errors_<%= results[i]._id %>" aria-expanded="false" aria-controls="errors_<%= results[i]._id %>">
-                                    <strong>Errors [ <%= results[i].errors_list.length %> ]</strong>
+                                <button class="btn btn-<% if (result.status) { %>light<% } else { %>warning<% } %> w-100" data-bs-toggle="collapse" data-bs-target="#errors_<%= result._id %>" aria-expanded="false" aria-controls="errors_<%= result._id %>">
+                                    <strong>Errors [ <%= result.errors_list.length %> ]</strong>
                                 </button>
-                                <% if (results[i].errors_list.length > 0) { %>
-                                    <div id="errors_<%= results[i]._id %>" class="collapse">
+                                <% if (result.errors_list.length > 0) { %>
+                                    <div id="errors_<%= result._id %>" class="collapse">
                                         <div class="card card-body">
                                             <ul>
-                                                <% for (let u = 0; u < results[i].errors_list.length && u < 9; u++) { %>
-                                                    <li><%= results[i].errors_list[u] %></li>
+                                                <% for (let u = 0; u < result.errors_list.length && u < 9; u++) { %>
+                                                    <li><%= result.errors_list[u] %></li>
                                                 <% } %>
                                             </ul>
-                                            <% if (results[i].errors_list.length > 10) { %>
+                                            <% if (result.errors_list.length > 10) { %>
                                                 <p class="text-center text-muted">more errors in details</p>
                                             <% } %>
                                         </div>
@@ -106,15 +107,15 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col">
-                                        <h6 class="text-secondary font-monospace"><%= results[i].test_info.service %> on <span class="fw-semibold text-capitalize"><%= results[i].test_info.env %></span></h6>
+                                        <h6 class="text-secondary font-monospace"><%= result.test_info.service %> on <span class="fw-semibold text-capitalize"><%= result.test_info.env %></span></h6>
                                     </div>
                                     <div class="col text-end">
-                                        <a class="" href="/session/<%= results[i]._id %>">view details</a>
+                                        <a class="" href="/session/<%= result._id %>">view details</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    <% } %>
+                    <% }); %>
                 <% } else { %>
                     <h3>No result found :(</h3>
                 <% } %>
