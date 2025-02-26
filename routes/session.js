@@ -31,7 +31,7 @@ router.get('/', async (req, res) => {
         res.status(500).render('error', {
             status_code: 500,
             error: error
-        })
+        });
     }
 });
 
@@ -42,12 +42,12 @@ router.get('/:id', async (req, res) => {
         res.render('test', {
             title: 'Test ' + result.title,
             result: result
-        })
+        });
     } catch (error) {
         res.status(500).render('error', {
             status_code: 500,
             error: error
-        })
+        });
     }
 });
 

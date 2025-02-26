@@ -7,6 +7,93 @@
     <%- include('partials/menubar.ejs')  %>
     
     <main role="main" class="container mt-4">
-        <pre><%=result.toString() %></pre>
+        <h1 class="text-center mb-5"><%= result.title %></h1>
+            <div class="row">
+                <div class="col">
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-sm text-bg-light">
+                            <h5 class="my-0 fw-bold">Test informations</h5>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <h6 class="my-0 fw-bold">Test ID</h6>
+                            <span class="text-body-secondary"><%= result._id %></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <h6 class="my-0 fw-bold">Session ID</h6>
+                            <span class="text-body-secondary"><%= result.test_info.session_id %></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <h6 class="my-0 fw-bold">Service</h6>
+                            <span class="text-body-secondary"><%= result.test_info.service %></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <h6 class="my-0 fw-bold">Environement</h6>
+                            <span class="text-body-secondary"><%= result.test_info.env %></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <h6 class="my-0 fw-bold">status</h6>
+                            <span class="text-capitalize badge text-bg-<% if (result.status) { %>success<% } else { %>danger<% } %> font-monospace"><%= result.status %></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <h6 class="my-0 fw-bold">Datetime</h6>
+                            <span class="text-body-secondary"><%= new Date(result.timestamp * 1000).toLocaleString() %></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-sm text-bg-light">
+                            <h5 class="my-0 fw-bold">Request informations</h5>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <h6 class="my-0 fw-bold">URL</h6>
+                            <span class="text-body-secondary"><a href="<%= result.url %>" target="_blank"><%= result.url %></a></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <h6 class="my-0 fw-bold">Headers</h6>
+                            <span class="text-body-secondary"><%= JSON.stringify(result.headers, null, 3) %></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <h6 class="my-0 fw-bold">Parameters</h6>
+                            <span class="text-body-secondary"><%= JSON.stringify(result.params, null, 3) %></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="EmptyStringError_container" class="pb-3">
+                <button class="btn btn-warning position-relative w-100 fs-5" data-bs-toggle="collapse" data-bs-target="#EmptyStringError" aria-expanded="false" aria-controls="EmptyStringError">
+                    EmptyStringError<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">16</span>
+                </button>
+                <div class="collapse" id="EmptyStringError">
+                    <div class="card pt-3">
+                        <ul>
+                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.0.id</span> should be in ['public_transport', 'walk', 'bicycle', 'scooter', 'wheels', 'car'] but got 'publicTransport' instead"</li>
+                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.2.tracking_id</span> return an empty string</li>
+                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.2.tracking_id</span> return an empty string</li>
+                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.2.tracking_id</span> return an empty string</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="MissingFieldError_container" class="pb-3">
+                <button class="btn btn-warning position-relative w-100 fs-5" data-bs-toggle="collapse" data-bs-target="#MissingFieldError" aria-expanded="false" aria-controls="MissingFieldError">
+                    MissingFieldError<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
+                </button>
+                <div class="collapse" id="MissingFieldError">
+                    <div class="card pt-3">
+                        <ul>
+                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.0.id</span> should be in ['public_transport', 'walk', 'bicycle', 'scooter', 'wheels', 'car'] but got 'publicTransport' instead"</li>
+                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.2.tracking_id</span> return an empty string</li>
+                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.2.tracking_id</span> return an empty string</li>
+                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.2.tracking_id</span> return an empty string</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        <div class="container card" id="root">
+            <code><pre><%= JSON.stringify(JSON.parse(result.api_response), null, 3) %></pre></code>
+        </div>
     </main>
 </body>
