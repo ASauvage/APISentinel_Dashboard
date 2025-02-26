@@ -14,36 +14,36 @@
                         <h3 class="border-bottom">Search your test results</h3>
                         <p class="text-muted">You can put any information you'd like here.</p>
                         <div class="content-section rounded">
-                            <form method="POST" action="/session">
+                            <form method="GET" action="/session">
                                 <fieldset class="form-group">
     <!--                                session_id field-->
                                     <div class="form-group">
                                         <label for="form_session_id" class="form-control-label">Session ID</label>
-                                        <input id="form_session_id" name="session_id" class="form-control form-control-lg" type="text" maxlength="22" placeholder="000000-000000-xxxxxxxx" />
+                                        <input id="form_session_id" name="session_id" class="form-control form-control-lg" type="text" maxlength="22" placeholder="000000-000000-xxxxxxxx" value="<%= query.session_id %>" />
                                     </div>
     <!--                                service field-->
                                     <div class="form-group">
                                         <label for="form_service" class="form-control-label">Service</label>
-                                        <input id="form_service" name="service" class="form-control form-control-lg" type="text" />
+                                        <input id="form_service" name="service" class="form-control form-control-lg" type="text" value="<%= query.service %>" />
                                     </div>
     <!--                                status field-->
                                     <div class="form-group">
                                         <label for="form_status" class="form-control-label">Status</label>
                                         <select id="form_status" name="status" class="form-control form-control-lg">
-                                            <option value="" selected></option>
-                                            <option value="true">True</option>
-                                            <option value="false">False</option>
+                                            <option value="" <% if (!query.status) { %>selected<% } %>></option>
+                                            <option value="true" <% if (query.status == 'true') { %>selected<% } %>>True</option>
+                                            <option value="false" <% if (query.status == 'false') { %>selected<% } %>>False</option>
                                         </select>
                                     </div>
     <!--                                env field-->
                                     <div class="form-group">
                                         <label for="form_env" class="form-control-label">Environment</label>
                                         <select id="form_env" name="env" class="form-control form-control-lg">
-                                            <option value="" selected></option>
-                                            <option value="production">production</option>
-                                            <option value="recette">recette</option>
-                                            <option value="snapshot">snapshot</option>
-                                            <option value="localhost">localhost</option>
+                                            <option value="" <% if (!query.env) { %>selected<% } %>></option>
+                                            <option value="production" <% if (query.env == 'production') { %>selected<% } %>>production</option>
+                                            <option value="recette" <% if (query.env == 'recette') { %>selected<% } %>>recette</option>
+                                            <option value="snapshot" <% if (query.env == 'snapshot') { %>selected<% } %>>snapshot</option>
+                                            <option value="localhost" <% if (query.env == 'localhost') { %>selected<% } %>>localhost</option>
                                         </select>
                                     </div>
                                     <a class="nav-link btn text-body-tertiary text-start" data-bs-toggle="collapse" data-bs-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch">

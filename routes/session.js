@@ -8,32 +8,23 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        const results = await api_tester.find({'test_info.version': process.env.APT_VERSION}, {'api_response': 0}).sort({'timestamp': -1, 'title': -1}).limit(30);
+        let results;
+        
+        if (Object.keys(req.query).length > 0) {
+            results = await api_tester.find({
+                'test_info.version': process.env.APT_VERSION,
+                ...(req.query.session_id != '' && { 'test_info.session_id': req.query.session_id }),
+                ...(req.query.service != '' && { 'test_info.service': req.query.service }),
+                ...(req.query.status != '' && { 'status': (req.query.status === 'true') }),
+                ...(req.query.env != '' && { 'test_info.env': req.query.env })
+            }, {'api_response': 0}).sort({'timestamp': -1, 'title': -1}).limit(30);
+        } else {
+            results = await api_tester.find({'test_info.version': process.env.APT_VERSION}, {'api_response': 0}).sort({'timestamp': -1, 'title': -1}).limit(30);
+        }
 
         res.render('session', {
             title: 'Sessions',
-            results: results
-        });
-    } catch (error) {
-        res.status(500).render('error', {
-            status_code: 500,
-            error: error
-        })
-    }
-});
-
-router.post('/', async (req, res) => {
-    try {
-        const results = await api_tester.find({
-            'test_info.version': process.env.APT_VERSION,
-            ...(req.body.session_id != '' && { 'test_info.session_id': req.body.session_id }),
-            ...(req.body.service != '' && { 'test_info.service': req.body.service }),
-            ...(req.body.status != '' &&{ 'status': (req.body.status === 'true') }),
-            ...(req.body.env != '' && { 'test_info.env': req.body.env })
-        }, {'api_response': 0}).sort({'timestamp': -1, 'title': -1});
-
-        res.render('session', {
-            title: 'Sessions',
+            query: req.query,
             results: results
         });
     } catch (error) {
