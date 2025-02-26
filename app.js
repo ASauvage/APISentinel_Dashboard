@@ -1,8 +1,8 @@
 require('dotenv').config();
 
 const express = require('express');
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 
 // [ mongoose] configurations
@@ -16,7 +16,7 @@ mongoose.connection.once('open', () => console.log('Connected to the database'))
 const app = express();
 
 app.set('view engine', 'ejs')
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // [express] routes definitions

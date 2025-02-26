@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
-const api_tester = require('../mongodb/models')
+const api_tester = require('../mongodb/models');
 
 const router = express.Router();
 
