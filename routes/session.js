@@ -40,7 +40,7 @@ router.get('/:id', async (req, res) => {
         const result = await api_tester.findById(req.params.id)
 
         res.render('test', {
-            title: 'Test ' + result.title,
+            title: result.title,
             result: result
         });
     } catch (error) {
