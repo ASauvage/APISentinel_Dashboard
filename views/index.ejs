@@ -9,17 +9,29 @@
     <main role="main" class="container mt-4">
         <h1>Homepage</h1>
         <hr>
-        
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 d-flex flex-wrap">
-        <% sessions.forEach((session) => { %>
-            <div class="col d-flex">
-                <div class="card flex-fill h-100">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= session %></h5>
-                        <a href="#" class="btn btn-primary">Read More</a>
+
+        <h5 class="fw-bold">Services :</h5>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 d-flex flex-wrap pb-5">
+            <% services.forEach((service) => { %>
+                <div class="col d-flex">
+                    <div class="card flex-fill h-100">
+                        <div class="card-body">
+                            <a href="/session?service=<%= service %>" class="btn btn-outline-primary w-100" title="Explore about this service">
+                                <h5 class="card-title text-center"><%= service %></h5>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <% }); %>
+            <% }); %>
+        </div>
+
+        <h5 class="fw-bolder">Recents sessions :</h5>
+        <div class="list-group mb-4">
+            <% sessions.forEach((session) => { %>
+                <a href="/session?session_id=<%= session.session_id %>" class="list-group-item">
+                    <%= session.session_id %>
+                </a>
+            <% }); %>
+        </div>
     </main>
 </body>

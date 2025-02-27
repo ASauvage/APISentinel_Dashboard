@@ -66,7 +66,7 @@
                         <h3><%= results.length %></h3>
                         <label class="form-control-label">Status rate</label>
                         <div class="progress">
-                            <% const success_percent = results.length ? (results.filter(r => r.status).length / results.length * 100).toFixed(0) : 100 %>
+                            <% const success_percent = results.length ? (results.filter(r => r.status).length / results.length * 100).toFixed(0) : 100; %>
                             <div class="progress-bar bg-success" role="progressbar" style="width: <%= success_percent %>%" aria-valuemin="0" aria-valuemax="100"><%= success_percent %>%</div>
                             <div class="progress-bar bg-danger" role="progressbar" style="width: <%= 100 - success_percent %>%" aria-valuemin="0" aria-valuemax="100"><%= 100 - success_percent %>%</div>
                         </div>
