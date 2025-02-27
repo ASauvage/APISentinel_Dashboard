@@ -8,93 +8,87 @@
     
     <main role="main" class="container mt-4">
         <h1 class="text-center mb-5"><%= result.title %></h1>
-            <div class="row">
-                <div class="col-sm-4">
-                    <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between lh-sm text-bg-light">
-                            <h5 class="my-0 fw-bold">Test informations</h5>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <h6 class="my-0 fw-bold">Test ID</h6>
-                            <span class="text-body-secondary"><%= result._id %></span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <h6 class="my-0 fw-bold">Session ID</h6>
-                            <span class="text-body-secondary"><%= result.test_info.session_id %></span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <h6 class="my-0 fw-bold">Service</h6>
-                            <span class="text-body-secondary"><%= result.test_info.service %></span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <h6 class="my-0 fw-bold">Environment</h6>
-                            <span class="text-body-secondary"><%= result.test_info.env %></span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <h6 class="my-0 fw-bold">status</h6>
-                            <span class="text-capitalize badge text-bg-<% if (result.status) { %>success<% } else { %>danger<% } %> font-monospace"><%= result.status %></span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <h6 class="my-0 fw-bold">Datetime</h6>
-                            <span class="text-body-secondary"><%= new Date(result.timestamp * 1000).toLocaleString() %></span>
-                        </li>
+        <div class="row">
+            <div class="col-sm-4">
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-sm text-bg-light">
+                        <h5 class="my-0 fw-bold">Test informations</h5>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <h6 class="my-0 fw-bold">Test ID</h6>
+                        <span class="text-body-secondary"><%= result._id %></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <h6 class="my-0 fw-bold">Session ID</h6>
+                        <span class="text-body-secondary"><%= result.test_info.session_id %></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <h6 class="my-0 fw-bold">Service</h6>
+                        <span class="text-body-secondary"><%= result.test_info.service %></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <h6 class="my-0 fw-bold">Environment</h6>
+                        <span class="text-body-secondary"><%= result.test_info.env %></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <h6 class="my-0 fw-bold">status</h6>
+                        <span class="text-capitalize badge text-bg-<% if (result.status) { %>success<% } else { %>danger<% } %> font-monospace"><%= result.status %></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <h6 class="my-0 fw-bold">Datetime</h6>
+                        <span class="text-body-secondary"><%= new Date(result.timestamp * 1000).toLocaleString() %></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm">
+                <div class="list-group mb-4">
+                    <li class="list-group-item d-flex justify-content-between lh-sm text-bg-light">
+                        <h5 class="my-0 fw-bold">Request informations</h5>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <h6 class="my-0 fw-bold">URL</h6>
+                        <span class="text-body-secondary" style="max-width: 87%;"><a href="<%= result.url %>" target="_blank"><%= result.url %></a></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <h6 class="my-0 fw-bold">Headers</h6>
+                        <span class="text-body-secondary" style="max-width: 87%;"><%= JSON.stringify(result.headers, null, 3) %></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <h6 class="my-0 fw-bold">Parameters</h6>
+                        <span class="text-body-secondary" style="max-width: 85%;"><%= JSON.stringify(result.params, null, 3) %></span>
+                    </li>
+                </div>
+            </div>
+        </div>
+        <% 
+            var errors = {};
+
+            result.errors_list.forEach((error) => { 
+                let [error_type, error_desc] = error.split(':');
+                
+                if (Object.keys(errors).includes(error_type)) {
+                    errors[error_type].push(error_desc);
+                } else {
+                    errors[error_type] = [error_desc];
+                }
+            });
+        %>
+        <% Object.keys(errors).forEach((error_type) => { %>
+            <div id="<%= error_type %>_container" class="pb-3">
+                <button class="btn btn-warning position-relative w-100 fs-5" data-bs-toggle="collapse" data-bs-target="#<%= error_type %>" aria-expanded="false" aria-controls="<%= error_type %>">
+                    <%= error_type %><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><%= errors[error_type].length %></span>
+                </button>
+                <div class="collapse" id="<%= error_type %>">
+                    <ul class="list-group">
+                        <% errors[error_type].forEach((error) => { %>
+                            <li class="list-group-item d-flex justify-content-between lh-sm"><%= error %></li>
+                        <% }); %>
                     </ul>
                 </div>
-                <div class="col-sm">
-                    <div class="list-group mb-4">
-                        <li class="list-group-item d-flex justify-content-between lh-sm text-bg-light">
-                            <h5 class="my-0 fw-bold">Request informations</h5>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <h6 class="my-0 fw-bold">URL</h6>
-                            <span class="text-body-secondary" style="max-width: 87%;"><a href="<%= result.url %>" target="_blank"><%= result.url %></a></span>
-                        </li>
-                        <a class="list-group-item d-flex justify-content-between lh-sm" onclick="alert('Action1 -> Details');">
-                            <h6 class="my-0 fw-bold">Headers</h6>
-                        </a>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <h6 class="my-0 fw-bold">Headers</h6>
-                            <span class="text-body-secondary" style="max-width: 87%;"><%= JSON.stringify(result.headers, null, 3) %></span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <h6 class="my-0 fw-bold">Parameters</h6>
-                            <span class="text-body-secondary" style="max-width: 85%;"><%= JSON.stringify(result.params, null, 3) %></span>
-                        </li>
-                    </div>
-                </div>
             </div>
+        <% }); %>
 
-            <div id="EmptyStringError_container" class="pb-3">
-                <button class="btn btn-warning position-relative w-100 fs-5" data-bs-toggle="collapse" data-bs-target="#EmptyStringError" aria-expanded="false" aria-controls="EmptyStringError">
-                    EmptyStringError<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">16</span>
-                </button>
-                <div class="collapse" id="EmptyStringError">
-                    <div class="card pt-3">
-                        <ul>
-                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.0.id</span> should be in ['public_transport', 'walk', 'bicycle', 'scooter', 'wheels', 'car'] but got 'publicTransport' instead"</li>
-                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.2.tracking_id</span> return an empty string</li>
-                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.2.tracking_id</span> return an empty string</li>
-                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.2.tracking_id</span> return an empty string</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="MissingFieldError_container" class="pb-3">
-                <button class="btn btn-warning position-relative w-100 fs-5" data-bs-toggle="collapse" data-bs-target="#MissingFieldError" aria-expanded="false" aria-controls="MissingFieldError">
-                    MissingFieldError<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
-                </button>
-                <div class="collapse" id="MissingFieldError">
-                    <div class="card pt-3">
-                        <ul>
-                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.0.id</span> should be in ['public_transport', 'walk', 'bicycle', 'scooter', 'wheels', 'car'] but got 'publicTransport' instead"</li>
-                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.2.tracking_id</span> return an empty string</li>
-                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.2.tracking_id</span> return an empty string</li>
-                            <li class="list-group-item"><span class="badge rounded-pill text-bg-primary fs-6">0.sections.2.tracking_id</span> return an empty string</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
+        <h5 class="fw-bold">API Response:</h5>
         <div class="container card pt-3" id="root">
             <code><pre><%= JSON.stringify(JSON.parse(result.api_response), null, 3) %></pre></code>
         </div>
