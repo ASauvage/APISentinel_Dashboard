@@ -9,7 +9,7 @@
     <main role="main" class="container mt-4">
         <h1 class="text-center mb-5"><%= result.title %></h1>
             <div class="row">
-                <div class="col">
+                <div class="col-sm-4">
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between lh-sm text-bg-light">
                             <h5 class="my-0 fw-bold">Test informations</h5>
@@ -27,7 +27,7 @@
                             <span class="text-body-secondary"><%= result.test_info.service %></span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <h6 class="my-0 fw-bold">Environement</h6>
+                            <h6 class="my-0 fw-bold">Environment</h6>
                             <span class="text-body-secondary"><%= result.test_info.env %></span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -40,24 +40,27 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col">
-                    <ul class="list-group mb-3">
+                <div class="col-sm">
+                    <div class="list-group mb-4">
                         <li class="list-group-item d-flex justify-content-between lh-sm text-bg-light">
                             <h5 class="my-0 fw-bold">Request informations</h5>
                         </li>
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <h6 class="my-0 fw-bold">URL</h6>
-                            <span class="text-body-secondary"><a href="<%= result.url %>" target="_blank"><%= result.url %></a></span>
+                            <span class="text-body-secondary" style="max-width: 87%;"><a href="<%= result.url %>" target="_blank"><%= result.url %></a></span>
                         </li>
+                        <a class="list-group-item d-flex justify-content-between lh-sm" onclick="alert('Action1 -> Details');">
+                            <h6 class="my-0 fw-bold">Headers</h6>
+                        </a>
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <h6 class="my-0 fw-bold">Headers</h6>
-                            <span class="text-body-secondary"><%= JSON.stringify(result.headers, null, 3) %></span>
+                            <span class="text-body-secondary" style="max-width: 87%;"><%= JSON.stringify(result.headers, null, 3) %></span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <h6 class="my-0 fw-bold">Parameters</h6>
-                            <span class="text-body-secondary"><%= JSON.stringify(result.params, null, 3) %></span>
+                            <span class="text-body-secondary" style="max-width: 85%;"><%= JSON.stringify(result.params, null, 3) %></span>
                         </li>
-                    </ul>
+                    </div>
                 </div>
             </div>
 
@@ -92,7 +95,7 @@
                 </div>
             </div>
 
-        <div class="container card" id="root">
+        <div class="container card pt-3" id="root">
             <code><pre><%= JSON.stringify(JSON.parse(result.api_response), null, 3) %></pre></code>
         </div>
     </main>
