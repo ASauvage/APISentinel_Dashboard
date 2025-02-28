@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
             { $project: { timestamp: 0 } }
         ]);
 
-        res.render('index', {
+        res.render('homepage', {
             title: 'Homepage',
             services: services,
             sessions: sessions
