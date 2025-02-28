@@ -1,15 +1,15 @@
 {
-    "name": "apitester_dashboard",
+    "name": "apisentinel_dashboard",
     "version": "1.0.0",
-    "description": "Web interface to analyse result of ApiTester",
+    "description": "Web interface to analyse result of APISentinel",
     "keywords": [],
-    "homepage": "https://github.com/ASauvage/ApiTester_Dashboard#readme",
+    "homepage": "https://github.com/ASauvage/APISentinel_Dashboard#readme",
     "bugs": {
-        "url": "https://github.com/ASauvage/ApiTester_Dashboard/issues"
+        "url": "https://github.com/ASauvage/APISentinel_Dashboard/issues"
     },
     "repository": {
         "type": "git",
-        "url": "git+ssh://git@github.com/ASauvage/ApiTester_Dashboard.git"
+        "url": "git+ssh://git@github.com/ASauvage/APISentinel_Dashboard.git"
     },
     "license": "MIT",
     "author": "ASauvage",
