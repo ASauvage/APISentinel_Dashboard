@@ -1,0 +1,1 @@
+![APISentinel](public/files/logo.png)
