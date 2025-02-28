@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include("partials/head") %>
+    <%- include('partials/head') %>
 </head>
 <body class="bg-seasalt">
-    <%- include('partials/menubar')  %>
+    <%- include('partials/menubar') %>
 
     <main role="main" class="container mt-4">
         <h1>Homepage</h1>
@@ -15,8 +15,8 @@
             <% services.forEach((service) => { %>
                 <div class="col d-flex">
                     <div class="flex-fill h-100">
-                        <a href="/session?service=<%= service._id %>" class="btn btn-outline-primary w-100" title="<%= service.count %> test founded">
-                            <h5 class="card-title text-center"><%= service._id %></h5>
+                        <a href="/session?service=<%= service._id %>" class="btn btn-outline-primary w-100 p-4 rounded-4" title="<%= service.count %> test founded">
+                            <h4 class="card-title text-center"><%= service._id %></h4>
                         </a>
                     </div>
                 </div>
@@ -26,10 +26,11 @@
         <h5 class="fw-bolder">Recents sessions :</h5>
         <div class="list-group mb-4">
             <% sessions.forEach((session) => { %>
-                <a href="/session?session_id=<%= session._id %>" class="list-group-item">
+                <a href="/session?session_id=<%= session._id %>" class="list-group-item list-group-item-action">
                     <%= session._id %>
                 </a>
             <% }); %>
         </div>
     </main>
 </body>
+</html>
