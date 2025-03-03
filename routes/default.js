@@ -1,7 +1,6 @@
-require('dotenv').config();
-
 const express = require('express');
 const api_tester = require('../mongodb/models');
+const { APT_VERSION } = require('../mongodb/data');
 
 const router = express.Router();
 
@@ -9,7 +8,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try {
         const services = await api_tester.aggregate([
-            { $match: { 'test_info.version': process.env.APT_VERSION } },
+            { $match: { 'test_info.version': { $in: APT_VERSION } } },
             { $sort: { timestamp: -1 } },
             { $limit: 1000 },
             { $group: { _id: '$test_info.service', count: { '$sum': 1 }, timestamp: { $max: '$timestamp' } } },
@@ -17,7 +16,7 @@ router.get('/', async (req, res) => {
             { $project: { timestamp: 0 } }
         ]);
         const sessions = await api_tester.aggregate([
-            { $match: { 'test_info.version': process.env.APT_VERSION } },
+            { $match: { 'test_info.version': { $in: APT_VERSION } } },
             { $group: { _id: '$test_info.session_id', timestamp: { $max: '$timestamp' } } },
             { $sort: { timestamp: -1 } },
             { $limit: 20 },
