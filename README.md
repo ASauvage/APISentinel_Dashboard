@@ -11,6 +11,9 @@ APISentinel Dashboard is a web-based interface designed to visualize and analyze
 - **Filtering & Comparison**: Compare multiple test sessions to identify changes over time.
 - **User-Friendly Dashboard**: Simple and intuitive web interface.
 
+> [!NOTE] 
+> Test results will be filtered according to the versions supported.
+
 ## Requirements
 
 - Node.js (v14+ recommended)
