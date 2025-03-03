@@ -1,3 +1,3 @@
-module.exports.APT_VERSION = [
+module.exports.APS_VERSIONS = [
     "1.6.0"
-]
+];
