@@ -1,6 +1,6 @@
 const express = require('express');
 const api_tester = require('../mongodb/models');
-const { APT_VERSION } = require('../mongodb/data');
+const { APS_VERSIONS } = require('../mongodb/data');
 
 const router = express.Router();
 
@@ -11,14 +11,14 @@ router.get('/', async (req, res) => {
         
         if (Object.keys(req.query).length > 0) {
             results = await api_tester.find({
-                'test_info.version': { $in: APT_VERSION },
+                'test_info.version': { $in: APS_VERSIONS },
                 ...(req.query.session_id && req.query.session_id != '' && { 'test_info.session_id': req.query.session_id }),
                 ...(req.query.service && req.query.service != '' && { 'test_info.service': req.query.service }),
                 ...(req.query.status && req.query.status != '' && { 'status': (req.query.status === 'true') }),
                 ...(req.query.env && req.query.env != '' && { 'test_info.env': req.query.env })
             }, {'api_response': 0}).sort({'timestamp': -1, 'title': -1}).limit(30);
         } else {
-            results = await api_tester.find({'test_info.version': { $in: APT_VERSION }}, {'api_response': 0}).sort({'timestamp': -1, 'title': -1}).limit(30);
+            results = await api_tester.find({'test_info.version': { $in: APS_VERSIONS }}, {'api_response': 0}).sort({'timestamp': -1, 'title': -1}).limit(30);
         }
 
         res.render('session', {
