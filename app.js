@@ -28,4 +28,4 @@ app.get('*', (req, res) => res.status(404).render('error', {
     error: "Page " + req.url + " not found"
 }));
 
-app.listen(process.env.SRV_PORT, () => console.log('Server is running on http://127.0.0.1:' + process.env.SRV_PORT));
+app.listen(3000, () => console.log('Server is running on http://127.0.0.1:3000'));
