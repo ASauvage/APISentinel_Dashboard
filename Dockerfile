@@ -4,7 +4,7 @@ ARG PORT=3000
 FROM node:${NODE_VERSION}-alpine
 
 ENV NODE_ENV=production
-ENV SRV_PORT=${NODE_VERSION}
+ENV SRV_PORT=${PORT}
 
 
 WORKDIR /usr/src/app
@@ -19,7 +19,7 @@ USER node
 COPY . .
 
 
-EXPOSE ${NODE_VERSION}
+EXPOSE ${PORT}
 
 
 CMD ["npm", "start"]
