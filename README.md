@@ -14,6 +14,10 @@ APISentinel Dashboard is a web-based interface designed to visualize and analyze
 > [!NOTE] 
 > Test results will be filtered according to the versions supported.
 
+| Dashboard | APISentinel |
+| --------- | ----------- |
+| v1.0.0    | v1.6.0      |
+
 ## Requirements
 
 - Node.js (v14+ recommended)
