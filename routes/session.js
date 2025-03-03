@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const result = await api_tester.findById(req.params.id)
+        const result = await api_tester.findById(req.params.id);
 
         res.render('test', {
             title: result.title,
