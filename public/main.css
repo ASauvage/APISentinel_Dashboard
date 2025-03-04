@@ -34,21 +34,13 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 5px;
 }
 
-.pre_json {
-    background-color: ghostwhite;
-    border: 1px solid silver;
-    padding: 0px 20px;
-    margin: 20px;
-}
-
-.json-key {
-    color: brown;
-}
-
-.json-value {
-    color: navy;
-}
-
-.json-string {
-    color: olive;
-}
+.renderjson a              { text-decoration: none; }
+.renderjson .disclosure    { color: black; }
+.renderjson .syntax        { color: grey; }
+.renderjson .string        { color: olive;; }
+.renderjson .number        { color: navy; }
+.renderjson .boolean       { color: blue; }
+.renderjson .key           { color: brown; }
+.renderjson .keyword       { color: orangered; }
+.renderjson .object.syntax { color: grey; }
+.renderjson .array.syntax  { color: grey; }

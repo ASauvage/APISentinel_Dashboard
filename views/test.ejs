@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <%- include('partials/head') %>
+    <script src="/libs/renderjson.min.js" onerror="this.src='https://cdn.jsdelivr.net/npm/renderjson@1.4.0/renderjson.min.js'"></script>
 </head>
 <body class="bg-seasalt">
     <%- include('partials/menubar') %>
@@ -89,9 +90,18 @@
         <% }); %>
 
         <h5 class="fw-bold">API Response:</h5>
-        <div class="container card pt-3" id="root">
-            <code><pre><%= JSON.stringify(JSON.parse(result.api_response), null, 3) %></pre></code>
+        <div class="container card pt-3">
+            <code id="root"></code>
         </div>
     </main>
+    <script>
+        renderjson.set_icons('⬗', '⬘');
+        // renderjson.set_icons('▼', '▲');
+        renderjson.set_show_to_level(1);
+
+        document.getElementById("root").appendChild(
+            renderjson(<%- JSON.stringify(JSON.parse(result.api_response), null, null) %>)
+        );
+    </script>
 </body>
 </html>
