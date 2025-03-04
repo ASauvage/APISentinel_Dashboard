@@ -2,6 +2,18 @@
 <html lang="en">
 <head>
     <%- include('partials/head') %>
+    <script type="text/javascript">
+        var script = document.createElement('script');
+        script.src = '/libs/renderjson.min.js';
+    
+        script.onerror = () => {
+            var cdnScript = document.createElement('script');
+            cdnScript.src = 'https://cdn.jsdelivr.net/npm/renderjson@1.4.0/renderjson.min.js';
+            document.head.appendChild(cdnScript);
+        };
+    
+        document.head.appendChild(script);
+    </script>
 </head>
 <body class="bg-seasalt">
     <%- include('partials/menubar') %>
@@ -32,7 +44,7 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-sm">
                         <h6 class="my-0 fw-bold">status</h6>
-                        <span class="text-capitalize badge text-bg-<% if (result.status) { %>success<% } else { %>danger<% } %> font-monospace"><%= result.status %></span>
+                        <span class="text-capitalize badge text-bg-<% if (result.status) { %>success<% } else { %>danger<% } %> font-monospace"><% if (result.status) { %>Success<% } else { %>Fail<% } %></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between lh-sm">
                         <h6 class="my-0 fw-bold">Datetime</h6>
@@ -89,9 +101,20 @@
         <% }); %>
 
         <h5 class="fw-bold">API Response:</h5>
-        <div class="container card pt-3" id="root">
-            <code><pre><%= JSON.stringify(JSON.parse(result.api_response), null, 3) %></pre></code>
+        <div class="container card pt-3">
+            <code id="root"></code>
         </div>
     </main>
+    <script>
+        window.onload = () => {
+            renderjson.set_icons('⬗', '⬘');
+            // renderjson.set_icons('▼', '▲');
+            renderjson.set_show_to_level(1);
+
+            document.getElementById("root").appendChild(
+                renderjson(<%- JSON.stringify(JSON.parse(result.api_response), null, null) %>)
+            );
+        };
+    </script>
 </body>
 </html>
