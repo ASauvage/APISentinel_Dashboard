@@ -82,7 +82,7 @@
                             </div>
                             <div>
                                 <h5>
-                                    <b>Status: </b><span class="badge text-capitalize text-bg-<% if (result.status) { %>success<% } else { %>danger<% } %> px-1 font-monospace rounded"><%= result.status %></span>
+                                    <b>Status: </b><span class="badge text-bg-<% if (result.status) { %>success<% } else { %>danger<% } %> px-1 font-monospace rounded"><% if (result.status) { %>Success<% } else { %>Fail<% } %></span>
                                 </h5>
                                 <h6 class="overflow-hidden"><a href="<%= result.url %>" target="_blank"><%= result.url %></a></h6>
                                 <button class="btn btn-<% if (result.status) { %>light<% } else { %>warning<% } %> w-100" data-bs-toggle="collapse" data-bs-target="#errors_<%= result._id %>" aria-expanded="false" aria-controls="errors_<%= result._id %>">
