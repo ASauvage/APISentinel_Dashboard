@@ -2,7 +2,18 @@
 <html lang="en">
 <head>
     <%- include('partials/head') %>
-    <script src="/libs/renderjson.min.js" onerror="this.src='https://cdn.jsdelivr.net/npm/renderjson@1.4.0/renderjson.min.js'"></script>
+    <script type="text/javascript">
+        var script = document.createElement('script');
+        script.src = '/libs/renderjson.min.js';
+    
+        script.onerror = () => {
+            var cdnScript = document.createElement('script');
+            cdnScript.src = 'https://cdn.jsdelivr.net/npm/renderjson@1.4.0/renderjson.min.js';
+            document.head.appendChild(cdnScript);
+        };
+    
+        document.head.appendChild(script);
+    </script>
 </head>
 <body class="bg-seasalt">
     <%- include('partials/menubar') %>
@@ -95,13 +106,15 @@
         </div>
     </main>
     <script>
-        renderjson.set_icons('⬗', '⬘');
-        // renderjson.set_icons('▼', '▲');
-        renderjson.set_show_to_level(1);
+        window.onload = () => {
+            renderjson.set_icons('⬗', '⬘');
+            // renderjson.set_icons('▼', '▲');
+            renderjson.set_show_to_level(1);
 
-        document.getElementById("root").appendChild(
-            renderjson(<%- JSON.stringify(JSON.parse(result.api_response), null, null) %>)
-        );
+            document.getElementById("root").appendChild(
+                renderjson(<%- JSON.stringify(JSON.parse(result.api_response), null, null) %>)
+            );
+        };
     </script>
 </body>
 </html>
