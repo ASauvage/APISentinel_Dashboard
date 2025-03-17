@@ -30,7 +30,7 @@ app.use("/session", routerSession);
 app.get("*", (req, res) =>
     res.status(404).render("error", {
         status_code: 404,
-        error: "Page " + req.url + " not found",
+        error: `Page ${req.url} not found`,
     })
 );
 
