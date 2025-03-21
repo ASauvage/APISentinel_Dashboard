@@ -16,28 +16,30 @@
                         <div class="content-section rounded">
                             <form method="GET" action="/session">
                                 <fieldset class="form-group">
-    <!--                                session_id field-->
-                                    <div class="form-group">
-                                        <label for="form_session_id" class="form-control-label">Session ID</label>
+                                    <!-- session_id field-->
+                                    <div class="form-floating mb-3">
                                         <input id="form_session_id" name="session_id" class="form-control form-control-lg" type="text" maxlength="22" placeholder="000000-000000-xxxxxxxx" value="<%= query.session_id %>" />
+                                        <label for="form_session_id">Session ID</label>
                                     </div>
-    <!--                                service field-->
-                                    <div class="form-group">
+
+                                    <!-- service field-->
+                                    <div class="form-floating mb-3">
+                                        <input id="form_service" name="service" class="form-control form-control-lg" type="text" placeholder="" value="<%= query.service %>" />
                                         <label for="form_service" class="form-control-label">Service</label>
-                                        <input id="form_service" name="service" class="form-control form-control-lg" type="text" value="<%= query.service %>" />
                                     </div>
-    <!--                                status field-->
-                                    <div class="form-group">
-                                        <label for="form_status" class="form-control-label">Status</label>
+
+                                    <!-- status field-->
+                                    <div class="form-floating mb-3">
                                         <select id="form_status" name="status" class="form-control form-control-lg">
                                             <option value="" <% if (!query.status) { %>selected<% } %>></option>
                                             <option value="true" <% if (query.status == 'true') { %>selected<% } %>>True</option>
                                             <option value="false" <% if (query.status == 'false') { %>selected<% } %>>False</option>
                                         </select>
+                                        <label for="form_status" class="form-control-label">Status</label>
                                     </div>
-    <!--                                env field-->
-                                    <div class="form-group">
-                                        <label for="form_env" class="form-control-label">Environment</label>
+
+                                    <!-- env field-->
+                                    <div class="form-floating">
                                         <select id="form_env" name="env" class="form-control form-control-lg">
                                             <option value="" <% if (!query.env) { %>selected<% } %>></option>
                                             <option value="production" <% if (query.env == 'production') { %>selected<% } %>>production</option>
@@ -45,15 +47,7 @@
                                             <option value="snapshot" <% if (query.env == 'snapshot') { %>selected<% } %>>snapshot</option>
                                             <option value="localhost" <% if (query.env == 'localhost') { %>selected<% } %>>localhost</option>
                                         </select>
-                                    </div>
-                                    <a class="nav-link btn text-body-tertiary text-start" data-bs-toggle="collapse" data-bs-target="#advancedSearch" aria-expanded="false" aria-controls="advancedSearch">
-                                        <p>Advanced</p>
-                                    </a>
-                                    <div id="advancedSearch" class="collapse">
-                                        <div class="form-group">
-                                            <label for="form_query" class="form-control-label">MongoDB query</label>
-                                            <input id="form_query" name="query" class="form-control form-control-lg" type="text" />
-                                        </div>
+                                        <label for="form_env" class="form-control-label">Environment</label>
                                     </div>
                                 </fieldset>
                                 <div class="form-group mt-4">
@@ -115,7 +109,7 @@
                         </div>
                     <% }); %>
                 <% } else { %>
-                    <h3>No result found :(</h3>
+                    <h3>No result found  (╯°□°)╯︵ ┻━┻</h3>
                 <% } %>
             </div>
         </div>
