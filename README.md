@@ -16,7 +16,7 @@ APISentinel Dashboard is a web-based interface designed to visualize and analyze
 
 | Dashboard          | APISentinel        |
 | ------------------ | ------------------ |
-| v1.0.0 - v1.0.2    | v1.6.0 - v1.6.1    |
+| v1.0.0 - v1.0.3    | v1.6.0 - v1.6.1    |
 
 ## Requirements
 
