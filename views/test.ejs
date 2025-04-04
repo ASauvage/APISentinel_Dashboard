@@ -2,18 +2,9 @@
 <html lang="en">
 <head>
     <%- include('partials/head') %>
-    <script type="text/javascript">
-        var script = document.createElement('script');
-        script.src = '/libs/renderjson.min.js';
     
-        script.onerror = () => {
-            var cdnScript = document.createElement('script');
-            cdnScript.src = 'https://cdn.jsdelivr.net/npm/renderjson@1.4.0/renderjson.min.js';
-            document.head.appendChild(cdnScript);
-        };
-    
-        document.head.appendChild(script);
-    </script>
+    <script src="/libs/renderjson.min.js"></script>
+    <script>window.renderjson || document.write('<script src="https://cdn.jsdelivr.net/npm/renderjson@1.4.0/renderjson.min.js"><\/script>');</script>
 </head>
 <body class="bg-seasalt">
     <%- include('partials/menubar') %>
@@ -105,15 +96,30 @@
             <code id="root"></code>
         </div>
     </main>
+    <div class="position-fixed bottom-0 end-0 m-3">
+        <% if (result.api_response) { %>
+            <button class="btn btn-primary" title="Download response" onclick="download_response()"><i class="fa-solid fa-download"></i></i></button>
+        <% }; %>
+        <button class="btn btn-primary" title="Copy URL" onclick="navigator.clipboard.writeText('<%= result.url %>')"><i class="fa-solid fa-copy"></i></button>
+        <button class="btn btn-success" title="Copy URL" onclick=""><i class="fa-solid fa-check"></i></i></button>
+    </div>
     <script>
-        window.onload = () => {
-            renderjson.set_icons('⬗', '⬘');
-            // renderjson.set_icons('▼', '▲');
-            renderjson.set_show_to_level(1);
+        const data = <%- result.api_response %>;
 
+        window.onload = () => {
             document.getElementById("root").appendChild(
-                renderjson(<%- JSON.stringify(JSON.parse(result.api_response), null, null) %>)
+                renderjson.set_icons('⬗', '⬘').set_show_to_level(1)(data)
             );
+        };
+
+        function download_response() {
+            var text = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 4));
+
+            var file = document.createElement('a');
+            file.setAttribute("href", text);
+            file.setAttribute("download", `${'<%= result.title.split('/').at(-1) %>'}.json`);
+
+            file.click();
         };
     </script>
 </body>
