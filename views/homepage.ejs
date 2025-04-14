@@ -7,7 +7,7 @@
     <%- include('partials/menubar') %>
 
     <main role="main" class="container mt-4">
-        <h1>Homepage</h1>
+        <h1><i class="fa-solid fa-house"></i> Homepage</h1>
         <hr>
 
         <h5 class="fw-bold">Services :</h5>
@@ -27,7 +27,10 @@
         <div class="list-group mb-4">
             <% sessions.forEach((session) => { %>
                 <a href="/session?session_id=<%= session._id %>" class="list-group-item list-group-item-action">
-                    <%= session._id %>
+                    <div class="row">
+                        <div class="col"><%= session._id %></div>
+                        <div class="col text-body-tertiary text-end"><%= new Date(session.timestamp * 1000).toLocaleString() %></div>
+                    </div>
                 </a>
             <% }); %>
         </div>
