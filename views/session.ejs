@@ -75,7 +75,7 @@
                                 <h2 class="col-md-8"><%= result.title %></h2><p class="col-md-4 text-body-tertiary fst-italic text-end fs-6"><%= new Date(result.timestamp * 1000).toLocaleString() %></p>
                             </div>
                             <div>
-                                <h5>
+                                <h5 id="<%= result._id %>">
                                     <b>Status: </b><span class="badge text-bg-<% if (result.status) { %>success<% } else { %>danger<% } %> px-1 font-monospace rounded"><% if (result.status) { %>Success<% } else { %>Fail<% } %></span>
                                 </h5>
                                 <h6 class="overflow-hidden"><a href="<%= result.url %>" target="_blank"><%= result.url %></a></h6>
@@ -98,7 +98,7 @@
                                 <% } %>
                                 <hr>
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="col-sm-4">
                                         <h6 class="text-secondary font-monospace"><%= result.test_info.service %> on <span class="fw-semibold text-capitalize"><%= result.test_info.env %></span></h6>
                                     </div>
                                     <div class="col text-end">
@@ -114,5 +114,18 @@
             </div>
         </div>
     </main>
+    <script>
+        window.onload = () => {
+            let id_list = [
+                <% results.forEach(result => { %>"<%= result._id %>",<% }); %>
+            ];
+            id_list.forEach(id => {
+                if (window.localStorage[id] == "true") {
+                    let element = document.getElementById(id);
+                    element.insertAdjacentHTML('beforeend', ' <span class="badge text-bg-success px-1 font-monospace rounded">Verified</span>');
+                }
+            });
+        };
+    </script>
 </body>
 </html>

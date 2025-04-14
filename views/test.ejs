@@ -105,25 +105,40 @@
     </div>
     <script>
         var checked = document.getElementById("check_button");
-        const data = <%- result.api_response %>;
+        var is_checked = document.getElementById("is_checked");
+        const data = <%- result.api_response || "null" %>;
 
         window.onload = () => {
             document.getElementById("root").appendChild(
                 renderjson.set_icons('⬗', '⬘').set_show_to_level(1)(data)
             );
 
-            if (window.localStorage['<%= result._id %>']) {
-                checked.classList.add("btn-outline-success");
-            } else {
+            try {
+                var loc_strg = JSON.parse(window.localStorage['<%= result._id %>']);
+            } catch(error) {
+                var loc_strg = false;
+                window.localStorage['<%= result._id %>'] = "false";
+            }
+
+            if (loc_strg) {
                 checked.classList.add("btn-success");
+                is_checked.style.display = "";
+            } else {
+                checked.classList.add("btn-outline-success");
             };
         };
 
         function check_toggle(id) {
-            window.localStorage[id] = !window.localStorage[id];
+            window.localStorage[id] = !JSON.parse(window.localStorage[id]);
             
             checked.classList.toggle("btn-outline-success");
             checked.classList.toggle("btn-success");
+
+            if (is_checked.style.display == "none") {
+                is_checked.style.display = "";
+            } else {
+                is_checked.style.display = "none";
+            };
         };
 
         function download_response() {
