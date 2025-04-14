@@ -19,7 +19,6 @@ router.get("/", async (req, res) => {
             { $group: { _id: "$test_info.session_id", timestamp: { $max: "$timestamp" } } },
             { $sort: { timestamp: -1 } },
             { $limit: 20 },
-            { $project: { timestamp: 0 } },
         ]);
 
         res.render("homepage", {

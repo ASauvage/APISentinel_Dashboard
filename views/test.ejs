@@ -2,24 +2,16 @@
 <html lang="en">
 <head>
     <%- include('partials/head') %>
-    <script type="text/javascript">
-        var script = document.createElement('script');
-        script.src = '/libs/renderjson.min.js';
     
-        script.onerror = () => {
-            var cdnScript = document.createElement('script');
-            cdnScript.src = 'https://cdn.jsdelivr.net/npm/renderjson@1.4.0/renderjson.min.js';
-            document.head.appendChild(cdnScript);
-        };
-    
-        document.head.appendChild(script);
-    </script>
+    <script src="/libs/renderjson.min.js"></script>
+    <script>window.renderjson || document.write('<script src="https://cdn.jsdelivr.net/npm/renderjson@1.4.0/renderjson.min.js"><\/script>');</script>
 </head>
 <body class="bg-seasalt">
     <%- include('partials/menubar') %>
     
     <main role="main" class="container mt-4">
         <h1 class="text-center mb-5"><%= result.title %></h1>
+        <div id="is_checked" class="alert alert-success" role="alert" style="display: none;">This test has been verified as done</div>
         <div class="row">
             <div class="col-sm-4">
                 <ul class="list-group mb-3">
@@ -105,15 +97,59 @@
             <code id="root"></code>
         </div>
     </main>
+    <div class="position-fixed bottom-0 end-0 m-3">
+        <% if (result.api_response) { %>
+            <button class="btn btn-primary" title="Download response" onclick="download_response()"><i class="fa-solid fa-download"></i></i></button>
+        <% }; %>
+        <button class="btn btn-primary" title="Copy URL" onclick="navigator.clipboard.writeText('<%= result.url %>')"><i class="fa-solid fa-copy"></i></button>
+        <button id="check_button" class="btn" title="Check as done" onclick="check_toggle('<%= result._id %>')"><i class="fa-solid fa-check"></i></i></button>
+    </div>
     <script>
-        window.onload = () => {
-            renderjson.set_icons('⬗', '⬘');
-            // renderjson.set_icons('▼', '▲');
-            renderjson.set_show_to_level(1);
+        var checked = document.getElementById("check_button");
+        var is_checked = document.getElementById("is_checked");
+        const data = <%- result.api_response || "null" %>;
 
+        window.onload = () => {
             document.getElementById("root").appendChild(
-                renderjson(<%- JSON.stringify(JSON.parse(result.api_response), null, null) %>)
+                renderjson.set_icons('⬗', '⬘').set_show_to_level(1)(data)
             );
+
+            try {
+                var loc_strg = JSON.parse(window.localStorage['<%= result._id %>']);
+            } catch(error) {
+                var loc_strg = false;
+                window.localStorage['<%= result._id %>'] = "false";
+            }
+
+            if (loc_strg) {
+                checked.classList.add("btn-success");
+                is_checked.style.display = "";
+            } else {
+                checked.classList.add("btn-outline-success");
+            };
+        };
+
+        function check_toggle(id) {
+            window.localStorage[id] = !JSON.parse(window.localStorage[id]);
+            
+            checked.classList.toggle("btn-outline-success");
+            checked.classList.toggle("btn-success");
+
+            if (is_checked.style.display == "none") {
+                is_checked.style.display = "";
+            } else {
+                is_checked.style.display = "none";
+            };
+        };
+
+        function download_response() {
+            var text = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 4));
+
+            var file = document.createElement('a');
+            file.setAttribute("href", text);
+            file.setAttribute("download", `${'<%= result.title.split('/').at(-1) %>'}.json`);
+
+            file.click();
         };
     </script>
 </body>
